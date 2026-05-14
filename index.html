@@ -355,7 +355,7 @@
   #s1 .cover-content { max-width: 70vw; }
   #s1 h1 { font-size: clamp(2.8rem, 6vw, 5rem); }
   #s2 { justify-content: center; }
-  #s12 { justify-content: center; align-items: center; text-align: center; }
+  #s13 { justify-content: center; align-items: center; text-align: center; }
 
   /* Intro slide */
   .intro-text {
@@ -661,7 +661,7 @@
     .left-stripe { display: none; }
 
     /* ── Closing slide ── */
-    #s12 {
+    #s13 {
       display: flex !important;
       flex-direction: column;
       align-items: center;
@@ -735,6 +735,162 @@
     /* ── Video links ── */
     .video-links { gap: .3em; }
     .video-link { font-size: clamp(.67rem, 2.7vw, .76rem); }
+  }
+
+  /* ── BUDGET SLIDE ── */
+  .budget-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: .9em;
+    margin-top: .2em;
+  }
+  .budget-block {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2em 1.4em;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    position: relative;
+    overflow: hidden;
+  }
+  .budget-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px 2px 0 0;
+  }
+  .budget-block-accent::before { background: var(--accent); }
+
+  .budget-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1em;
+    margin-bottom: .9em;
+    padding-bottom: .8em;
+    border-bottom: 1px solid var(--border);
+  }
+  .budget-block-label {
+    font-size: clamp(.62rem, .8vw, .72rem);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .2em;
+    font-weight: 500;
+  }
+  .budget-block-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(.95rem, 1.3vw, 1.1rem);
+    font-weight: 700;
+    color: var(--text);
+  }
+  .budget-price-tag {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .budget-price {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+    font-weight: 800;
+    color: var(--text);
+    display: block;
+    line-height: 1;
+  }
+  .budget-price-note {
+    font-size: clamp(.6rem, .78vw, .7rem);
+    color: var(--muted);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .budget-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .4em 1.5em;
+  }
+  .budget-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .budget-list li {
+    display: flex;
+    align-items: baseline;
+    gap: .5em;
+    padding: .32em 0;
+    border-bottom: 1px solid var(--border);
+    font-size: clamp(.76rem, .98vw, .88rem);
+    color: var(--para);
+    flex-wrap: wrap;
+  }
+  .budget-list li:last-child { border-bottom: none; }
+  .budget-list li::before {
+    content: '→';
+    color: var(--accent2);
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: .8em;
+  }
+  .budget-chip {
+    background: rgba(245,200,0,.14);
+    color: var(--accent2);
+    font-size: clamp(.58rem, .72vw, .65rem);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .15em .45em;
+    border-radius: 3px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .budget-totals {
+    background: var(--text);
+    border-radius: 10px;
+    padding: 1em 1.4em;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+  }
+  .budget-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: .5em;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .budget-total-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .budget-total-label {
+    font-size: clamp(.8rem, 1.1vw, .95rem);
+    color: rgba(255,255,255,.65);
+    font-weight: 400;
+  }
+  .budget-total-note {
+    font-size: .78em;
+    color: rgba(255,255,255,.4);
+    margin-left: .3em;
+  }
+  .budget-total-val {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-weight: 800;
+    color: #ffffff;
+  }
+  .budget-total-val.accent { color: var(--accent); }
+  .budget-total-row-main .budget-total-label { color: rgba(255,255,255,.9); font-weight: 500; }
+
+  /* Mobile budget */
+  @media (max-width: 768px) {
+    .budget-grid { grid-template-columns: 1fr; gap: 0; }
+    .budget-block-header { flex-wrap: wrap; gap: .6em; }
+    .budget-price-tag { text-align: left; }
+    .budget-price { font-size: clamp(1.3rem, 7vw, 1.7rem); }
+    .budget-list li { font-size: clamp(.78rem, 3.2vw, .9rem); }
+    .budget-chip { font-size: clamp(.58rem, 2.3vw, .65rem); }
+    .budget-totals { padding: .85em 1em; }
+    .budget-total-val { font-size: clamp(.95rem, 4.5vw, 1.15rem); }
   }
 
 </style>
@@ -1120,14 +1276,87 @@
     <div class="slide-label">11 / 12</div>
   </section>
 
-  <!-- ── SLIDE 12: CIERRE ── -->
+
+  <!-- ── SLIDE 12: PROPUESTA DE INVERSIÓN ── -->
   <section class="slide" id="s12">
+    <div class="eyebrow" data-reveal="1">Propuesta de inversión</div>
+    <h2 data-reveal="2">Lo que incluye trabajar con We Flow.</h2>
+    <div class="accent-rule" data-reveal="2"></div>
+
+    <div class="budget-wrap" data-reveal="3">
+
+      <!-- ONE-TIME FEE -->
+      <div class="budget-block">
+        <div class="budget-block-header">
+          <div>
+            <div class="budget-block-label">Pago único de arranque</div>
+            <div class="budget-block-title">Estrategia digital completa</div>
+          </div>
+          <div class="budget-price-tag">
+            <span class="budget-price">$300</span>
+            <span class="budget-price-note">una sola vez</span>
+          </div>
+        </div>
+        <ul class="budget-list">
+          <li>Diagnóstico y auditoría del canal digital actual</li>
+          <li>Estrategia de comunicación con objetivos semestrales</li>
+          <li>Definición de pilares de contenido y tono de marca</li>
+          <li>Benchmark completo del sector farmacéutico</li>
+        </ul>
+      </div>
+
+      <!-- MONTHLY RETAINER -->
+      <div class="budget-block budget-block-accent">
+        <div class="budget-block-header">
+          <div>
+            <div class="budget-block-label">Retainer mensual</div>
+            <div class="budget-block-title">Gestión y producción de contenido</div>
+          </div>
+          <div class="budget-price-tag">
+            <span class="budget-price">$1,000</span>
+            <span class="budget-price-note">por mes</span>
+          </div>
+        </div>
+        <div class="budget-grid">
+          <ul class="budget-list">
+            <li>2 pautas de contenido al mes <span class="budget-chip">grabaciones + traslado</span></li>
+            <li>Grilla mensual de contenido</li>
+            <li>Propuestas de colaboraciones y guiones</li>
+            <li>Diseño y edición de videos, posts, carruseles e historias</li>
+          </ul>
+          <ul class="budget-list">
+            <li>8 posts al mes <span class="budget-chip">2 por semana</span></li>
+            <li>4 reels al mes <span class="budget-chip">1 por semana</span></li>
+            <li>12 ráfagas de historias al mes <span class="budget-chip">3 por semana</span></li>
+            <li>Reporte de métricas mensual</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TOTALS -->
+      <div class="budget-totals">
+        <div class="budget-total-row">
+          <span class="budget-total-label">Mes 1 <span class="budget-total-note">(arranque + retainer)</span></span>
+          <span class="budget-total-val">$1,300</span>
+        </div>
+        <div class="budget-total-row budget-total-row-main">
+          <span class="budget-total-label">Meses siguientes</span>
+          <span class="budget-total-val accent">$1,000 <span class="budget-total-note">/ mes</span></span>
+        </div>
+      </div>
+
+    </div>
+    <div class="slide-label">12 / 13</div>
+  </section>
+
+  <!-- ── SLIDE 13: CIERRE ── -->
+  <section class="slide" id="s13">
     <div class="closing-center" data-reveal="1">
       <p class="closing-pre">Insuaminca ya tiene los activos:</p>
       <h1 class="closing-h1">web funcional,<br>revista semanal<br>y presencia en redes.</h1>
       <p class="closing-coda" data-reveal="2">Lo que falta es la estrategia que los conecte.</p>
     </div>
-    <div class="slide-label" style="color:var(--muted)">12 / 12</div>
+    <div class="slide-label" style="color:var(--muted)">13 / 13</div>
   </section>
 
 </div>
@@ -1136,7 +1365,7 @@
 <nav class="nav" id="nav">
   <button class="nav-btn" id="prevBtn" title="Anterior">&#8592;</button>
   <div class="nav-dots" id="dots"></div>
-  <span class="slide-counter" id="counter">1 / 12</span>
+  <span class="slide-counter" id="counter">1 / 13</span>
   <button class="nav-btn" id="nextBtn" title="Siguiente">&#8594;</button>
 </nav>
 
