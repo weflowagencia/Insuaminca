@@ -569,6 +569,109 @@
     max-width: 60vw;
   }
 
+  /* ═══════════════════════════════════
+     MOBILE — full responsive overhaul
+  ═══════════════════════════════════ */
+  @media (max-width: 768px) {
+
+    /* Slides scroll internally on mobile */
+    .slide {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 7vh 6vw 12vh;
+      justify-content: flex-start;
+      gap: 1em;
+    }
+
+    /* Typography scale-down */
+    h1 { font-size: clamp(1.9rem, 8vw, 2.6rem); }
+    h2 { font-size: clamp(1.25rem, 5.5vw, 1.8rem); }
+    h3 { font-size: clamp(.9rem, 3.8vw, 1.1rem); }
+    p, li { font-size: clamp(.82rem, 3.4vw, .95rem); }
+
+    /* All grids → single column */
+    .grid-2,
+    .grid-3,
+    .grid-split { grid-template-columns: 1fr !important; }
+
+    /* Stats band → 2 columns */
+    .stats-band { grid-template-columns: 1fr 1fr; }
+    .stat-item { padding: .7em .8em; }
+    .stat-val { font-size: clamp(1.2rem, 6vw, 1.6rem); }
+
+    /* Flow diagram → vertical */
+    .flow { flex-direction: column; gap: .5em; }
+    .flow-arrow { transform: rotate(90deg); align-self: center; }
+    .flow-box { width: 100%; }
+
+    /* Cards — reduce padding */
+    .card,
+    .callout,
+    .portfolio-card,
+    .brand-card,
+    .project-slide-card { padding: 1em 1.1em; }
+
+    /* Intro text */
+    .intro-text {
+      max-width: 100%;
+      font-size: clamp(.88rem, 3.5vw, 1rem);
+    }
+
+    /* Slide label — hide to save space */
+    .slide-label { display: none; }
+
+    /* Cover */
+    #s1 { justify-content: center; padding-bottom: 12vh; }
+    #s1 h1 { font-size: clamp(2rem, 9vw, 3rem); }
+    .cover-content { max-width: 100%; }
+
+    /* Closing */
+    #s12 { padding: 4vh 6vw 10vh; }
+    .closing-h1 { font-size: clamp(2rem, 9vw, 3.2rem); }
+    .closing-coda { max-width: 90vw; font-size: clamp(.95rem, 4vw, 1.2rem); }
+
+    /* Navigation */
+    .nav {
+      padding: .45em .9em;
+      gap: .7em;
+      bottom: 1.5vh;
+    }
+    .nav-dots { display: none; }
+    .slide-counter { font-size: .72rem; }
+    .nav-btn { font-size: .9rem; padding: .25em .45em; }
+
+    /* Logo badge */
+    .logo-wrap { top: 1.2vh; left: 3vw; padding: 4px 10px; }
+
+    /* Feature rows */
+    .feature-row { padding: .45em 0; }
+    .feature-row p { font-size: clamp(.72rem, 2.8vw, .82rem); }
+
+    /* Arrow/check lists */
+    .arrow-list li,
+    .check-list li { font-size: clamp(.78rem, 3.2vw, .9rem); }
+
+    /* Pct tags */
+    .pct-tag { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+
+    /* Contact bar */
+    .contact-bar {
+      flex-direction: column;
+      gap: .6em;
+      padding: 1.2em 5vw;
+      text-align: center;
+    }
+    .contact-bar .contact-info { text-align: center; }
+
+    /* Brand/project cards in grid */
+    .brand-name { font-size: clamp(.9rem, 4vw, 1.1rem); }
+    .psm-val { font-size: clamp(.9rem, 4vw, 1.1rem); }
+
+    /* Video links */
+    .video-links { gap: .35em; }
+    .video-link { font-size: clamp(.68rem, 2.8vw, .78rem); }
+  }
+
 </style>
 </head>
 <body>
@@ -1019,13 +1122,20 @@
     if (e.key === 'ArrowRight' || e.key === ' ') goTo(current + 1);
     if (e.key === 'ArrowLeft') goTo(current - 1, true);
   });
-  let touchX = null;
-  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+  let touchX = null, touchY = null;
+  document.addEventListener('touchstart', e => {
+    touchX = e.touches[0].clientX;
+    touchY = e.touches[0].clientY;
+  });
   document.addEventListener('touchend', e => {
     if (touchX === null) return;
     const dx = e.changedTouches[0].clientX - touchX;
-    if (Math.abs(dx) > 50) dx < 0 ? goTo(current + 1) : goTo(current - 1, true);
-    touchX = null;
+    const dy = Math.abs(e.changedTouches[0].clientY - touchY);
+    // Only navigate if horizontal swipe is dominant (not a scroll gesture)
+    if (Math.abs(dx) > 55 && Math.abs(dx) > dy * 1.5) {
+      dx < 0 ? goTo(current + 1) : goTo(current - 1, true);
+    }
+    touchX = null; touchY = null;
   });
   updateUI();
 </script>
