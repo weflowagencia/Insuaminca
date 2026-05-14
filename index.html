@@ -574,102 +574,114 @@
   ═══════════════════════════════════ */
   @media (max-width: 768px) {
 
-    /* Slides scroll internally on mobile */
+    /* ── Slides: internal scroll, compact padding ── */
     .slide {
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 7vh 6vw 12vh;
+      padding: 10vh 5vw 13vh;
       justify-content: flex-start;
-      gap: 1em;
+      gap: .5em;
     }
 
-    /* Typography scale-down */
-    h1 { font-size: clamp(1.9rem, 8vw, 2.6rem); }
-    h2 { font-size: clamp(1.25rem, 5.5vw, 1.8rem); }
-    h3 { font-size: clamp(.9rem, 3.8vw, 1.1rem); }
-    p, li { font-size: clamp(.82rem, 3.4vw, .95rem); }
+    /* ── Kill spacing between title block elements ── */
+    .eyebrow { margin-bottom: .25em; }
+    .accent-rule { margin: .3em 0 .6em; }
+    h2 { margin-bottom: 0; line-height: 1.12; }
 
-    /* All grids → single column */
+    /* ── Typography ── */
+    h1 { font-size: clamp(1.8rem, 8vw, 2.4rem); line-height: 1.05; }
+    h2 { font-size: clamp(1.15rem, 5vw, 1.6rem); }
+    h3 { font-size: clamp(.88rem, 3.6vw, 1rem); }
+    p, li { font-size: clamp(.8rem, 3.2vw, .92rem); }
+
+    /* ── Grids → single column ── */
     .grid-2,
     .grid-3,
     .grid-split { grid-template-columns: 1fr !important; }
 
-    /* Stats band → 2 columns */
+    /* Stats band → 2 cols ── */
     .stats-band { grid-template-columns: 1fr 1fr; }
-    .stat-item { padding: .7em .8em; }
-    .stat-val { font-size: clamp(1.2rem, 6vw, 1.6rem); }
+    .stat-item { padding: .55em .6em; }
+    .stat-val { font-size: clamp(1.1rem, 5.5vw, 1.5rem); }
+    .stat-label { font-size: clamp(.58rem, 2.4vw, .68rem); }
 
-    /* Flow diagram → vertical */
-    .flow { flex-direction: column; gap: .5em; }
+    /* ── Flow diagram → vertical ── */
+    .flow { flex-direction: column; gap: .35em; margin: .5em 0; }
     .flow-arrow { transform: rotate(90deg); align-self: center; }
-    .flow-box { width: 100%; }
+    .flow-box { width: 100%; padding: .7em 1em; }
+    .flow-box .flow-label { font-size: clamp(.82rem, 3.4vw, .95rem); }
 
-    /* Cards — reduce padding */
+    /* ── Cards — tighter padding ── */
     .card,
     .callout,
     .portfolio-card,
     .brand-card,
-    .project-slide-card { padding: 1em 1.1em; }
+    .project-slide-card { padding: .85em 1em; }
 
-    /* Intro text */
+    /* ── Intro text ── */
     .intro-text {
       max-width: 100%;
-      font-size: clamp(.88rem, 3.5vw, 1rem);
+      font-size: clamp(.84rem, 3.3vw, .96rem);
+      line-height: 1.65;
+      margin-top: 0 !important;
     }
 
-    /* Slide label — hide to save space */
+    /* ── Slide label — hide ── */
     .slide-label { display: none; }
 
-    /* Cover */
-    #s1 { justify-content: center; padding-bottom: 12vh; }
-    #s1 h1 { font-size: clamp(2rem, 9vw, 3rem); }
+    /* ── Cover: anchor to top, not center ── */
+    #s1 {
+      justify-content: flex-start !important;
+      padding-top: 16vh;
+      padding-bottom: 13vh;
+    }
+    #s1 h1 { font-size: clamp(2rem, 9vw, 2.8rem); }
     .cover-content { max-width: 100%; }
+    .cover-content .muted { margin-top: .2em; }
 
-    /* Closing */
-    #s12 { padding: 4vh 6vw 10vh; }
-    .closing-h1 { font-size: clamp(2rem, 9vw, 3.2rem); }
-    .closing-coda { max-width: 90vw; font-size: clamp(.95rem, 4vw, 1.2rem); }
+    /* ── Closing ── */
+    #s12 { padding: 0 5vw 13vh; }
+    .closing-center { max-width: 92vw; gap: .5em; }
+    .closing-h1 { font-size: clamp(2rem, 9vw, 3rem); }
+    .closing-coda { max-width: 88vw; font-size: clamp(.9rem, 3.8vw, 1.1rem); }
+    .closing-pre { margin-bottom: .2em; }
 
-    /* Navigation */
-    .nav {
-      padding: .45em .9em;
-      gap: .7em;
-      bottom: 1.5vh;
-    }
+    /* ── Navigation ── */
+    .nav { padding: .4em .85em; gap: .6em; bottom: 1.2vh; }
     .nav-dots { display: none; }
-    .slide-counter { font-size: .72rem; }
-    .nav-btn { font-size: .9rem; padding: .25em .45em; }
+    .slide-counter { font-size: .7rem; }
+    .nav-btn { font-size: .88rem; padding: .2em .4em; }
 
-    /* Logo badge */
-    .logo-wrap { top: 1.2vh; left: 3vw; padding: 4px 10px; }
+    /* ── Logo badge ── */
+    .logo-wrap { top: 1vh; left: 3vw; padding: 4px 10px; }
 
-    /* Feature rows */
-    .feature-row { padding: .45em 0; }
-    .feature-row p { font-size: clamp(.72rem, 2.8vw, .82rem); }
+    /* ── Feature rows ── */
+    .feature-row { padding: .4em 0; gap: .6em; }
+    .feature-row h4 { font-size: clamp(.8rem, 3.2vw, .9rem); }
+    .feature-row p { font-size: clamp(.7rem, 2.7vw, .8rem); }
 
-    /* Arrow/check lists */
+    /* ── Lists ── */
     .arrow-list li,
-    .check-list li { font-size: clamp(.78rem, 3.2vw, .9rem); }
+    .check-list li { font-size: clamp(.76rem, 3vw, .88rem); padding: .35em 0; }
 
-    /* Pct tags */
-    .pct-tag { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+    /* ── Pct tags ── */
+    .pct-tag { font-size: clamp(1.5rem, 6.5vw, 2rem); margin-bottom: .1em; }
 
-    /* Contact bar */
-    .contact-bar {
-      flex-direction: column;
-      gap: .6em;
-      padding: 1.2em 5vw;
-      text-align: center;
-    }
-    .contact-bar .contact-info { text-align: center; }
+    /* ── Brand / project cards ── */
+    .brand-name { font-size: clamp(.88rem, 3.8vw, 1rem); }
+    .brand-sub { font-size: clamp(.6rem, 2.4vw, .7rem); }
+    .psm-val { font-size: clamp(.88rem, 3.8vw, 1.05rem); }
+    .psm-label { font-size: clamp(.62rem, 2.5vw, .72rem); }
+    .psm-role { font-size: clamp(.6rem, 2.4vw, .68rem); }
+    .project-slide-title { font-size: clamp(.9rem, 3.8vw, 1.05rem); }
+    .project-slide-brand { font-size: clamp(.6rem, 2.4vw, .7rem); }
 
-    /* Brand/project cards in grid */
-    .brand-name { font-size: clamp(.9rem, 4vw, 1.1rem); }
-    .psm-val { font-size: clamp(.9rem, 4vw, 1.1rem); }
+    /* ── Video links ── */
+    .video-links { gap: .28em; }
+    .video-link { font-size: clamp(.65rem, 2.6vw, .75rem); }
 
-    /* Video links */
-    .video-links { gap: .35em; }
-    .video-link { font-size: clamp(.68rem, 2.8vw, .78rem); }
+    /* ── Card num (hallazgos) ── */
+    .card-num { font-size: clamp(1.2rem, 5vw, 1.6rem); margin-bottom: .1em; }
   }
 
 </style>
