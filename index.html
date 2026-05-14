@@ -569,119 +569,172 @@
     max-width: 60vw;
   }
 
-  /* ═══════════════════════════════════
-     MOBILE — full responsive overhaul
-  ═══════════════════════════════════ */
+  
+  /* ════════════════════════════════════════════════════
+     MOBILE — scrollable single-page layout
+     All slide logic removed; content flows naturally
+  ════════════════════════════════════════════════════ */
   @media (max-width: 768px) {
 
-    /* ── Slides: internal scroll, compact padding ── */
-    .slide {
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 10vh 5vw 13vh;
-      justify-content: flex-start;
-      gap: .5em;
+    /* ── Make body and deck scrollable ── */
+    html, body {
+      overflow-y: auto !important;
+      overflow-x: hidden;
+      height: auto !important;
+    }
+    .deck {
+      height: auto !important;
+      overflow: visible !important;
+      position: relative !important;
     }
 
-    /* ── Kill spacing between title block elements ── */
-    .eyebrow { margin-bottom: .25em; }
-    .accent-rule { margin: .3em 0 .6em; }
-    h2 { margin-bottom: 0; line-height: 1.12; }
+    /* ── All slides: flow as sections ── */
+    .slide {
+      position: relative !important;
+      inset: auto !important;
+      opacity: 1 !important;
+      pointer-events: all !important;
+      display: block !important;
+      height: auto !important;
+      min-height: 0 !important;
+      padding: 3.2em 5vw 2.4em !important;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg) !important;
+      overflow: visible !important;
+    }
+    .slide:last-child { border-bottom: none; }
+
+    /* ── Force all data-reveal elements visible ── */
+    .slide [data-reveal] {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    /* ── Hide nav bar and progress bar on mobile ── */
+    .nav    { display: none !important; }
+    .progress { display: none !important; }
+    .slide-label { display: none !important; }
+
+    /* ── Logo badge ── */
+    .logo-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 300;
+      padding: 10px 14px 10px 4vw;
+      border-radius: 0;
+      width: 100%;
+      background: #000 !important;
+      display: flex;
+      align-items: center;
+    }
+    .logo-fixed { height: 26px; }
 
     /* ── Typography ── */
-    h1 { font-size: clamp(1.8rem, 8vw, 2.4rem); line-height: 1.05; }
-    h2 { font-size: clamp(1.15rem, 5vw, 1.6rem); }
-    h3 { font-size: clamp(.88rem, 3.6vw, 1rem); }
-    p, li { font-size: clamp(.8rem, 3.2vw, .92rem); }
+    h1 { font-size: clamp(2rem, 9vw, 2.8rem); line-height: 1.05; }
+    h2 { font-size: clamp(1.2rem, 5.5vw, 1.65rem); line-height: 1.12; margin-bottom: 0; }
+    h3 { font-size: clamp(.9rem, 3.8vw, 1.05rem); }
+    p, li { font-size: clamp(.85rem, 3.5vw, .95rem); line-height: 1.6; }
+
+    /* ── Spacing between eyebrow (yellow) and h2 (dark) ── */
+    .eyebrow {
+      margin-bottom: .55em;
+      display: block;
+    }
+
+    /* ── Space between h2 and accent-rule ── */
+    .accent-rule { margin: .55em 0 1em; }
+
+    /* ── Space between h2 yellow span and rest ── */
+    h2 span[style*="color"] { display: block; margin-top: .35em; }
+
+    /* ── Cover slide ── */
+    #s1 {
+      min-height: 60vw !important;
+      display: flex !important;
+      flex-direction: column;
+      justify-content: flex-end !important;
+      padding-top: 3em !important;
+    }
+    #s1 h1 { font-size: clamp(2.2rem, 9.5vw, 3rem); }
+    .cover-content { max-width: 100%; }
+    .left-stripe { display: none; }
+
+    /* ── Closing slide ── */
+    #s12 {
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center !important;
+      min-height: 55vw !important;
+      text-align: center;
+      padding: 3em 5vw !important;
+    }
+    .closing-center { max-width: 92vw; }
+    .closing-h1 { font-size: clamp(2rem, 9vw, 2.8rem); }
+    .closing-pre { margin-bottom: .3em; font-size: .85rem; }
+    .closing-coda {
+      max-width: 88vw;
+      font-size: clamp(.95rem, 4vw, 1.15rem);
+      margin-top: .6em;
+    }
 
     /* ── Grids → single column ── */
     .grid-2,
     .grid-3,
-    .grid-split { grid-template-columns: 1fr !important; }
+    .grid-split { grid-template-columns: 1fr !important; gap: .8em !important; }
 
-    /* Stats band → 2 cols ── */
-    .stats-band { grid-template-columns: 1fr 1fr; }
-    .stat-item { padding: .55em .6em; }
+    /* ── Stats band → 2 cols ── */
+    .stats-band { grid-template-columns: 1fr 1fr !important; margin-bottom: .8em; }
+    .stat-item { padding: .65em .7em; border-right: 1px solid var(--border); }
     .stat-val { font-size: clamp(1.1rem, 5.5vw, 1.5rem); }
     .stat-label { font-size: clamp(.58rem, 2.4vw, .68rem); }
 
     /* ── Flow diagram → vertical ── */
-    .flow { flex-direction: column; gap: .35em; margin: .5em 0; }
-    .flow-arrow { transform: rotate(90deg); align-self: center; }
-    .flow-box { width: 100%; padding: .7em 1em; }
-    .flow-box .flow-label { font-size: clamp(.82rem, 3.4vw, .95rem); }
+    .flow { flex-direction: column; gap: .4em; margin: .8em 0; }
+    .flow-arrow { transform: rotate(90deg); align-self: center; line-height: 1; }
+    .flow-box { width: 100%; padding: .75em 1em; }
+    .flow-box .flow-label { font-size: clamp(.85rem, 3.5vw, .95rem); }
 
-    /* ── Cards — tighter padding ── */
+    /* ── Cards ── */
     .card,
     .callout,
     .portfolio-card,
     .brand-card,
-    .project-slide-card { padding: .85em 1em; }
+    .project-slide-card { padding: .9em 1em; }
+    .card-num { font-size: clamp(1.2rem, 5vw, 1.5rem); margin-bottom: .1em; }
 
     /* ── Intro text ── */
     .intro-text {
       max-width: 100%;
-      font-size: clamp(.84rem, 3.3vw, .96rem);
-      line-height: 1.65;
-      margin-top: 0 !important;
+      font-size: clamp(.85rem, 3.4vw, .96rem);
+      line-height: 1.68;
     }
-
-    /* ── Slide label — hide ── */
-    .slide-label { display: none; }
-
-    /* ── Cover: anchor to top, not center ── */
-    #s1 {
-      justify-content: flex-start !important;
-      padding-top: 16vh;
-      padding-bottom: 13vh;
-    }
-    #s1 h1 { font-size: clamp(2rem, 9vw, 2.8rem); }
-    .cover-content { max-width: 100%; }
-    .cover-content .muted { margin-top: .2em; }
-
-    /* ── Closing ── */
-    #s12 { padding: 0 5vw 13vh; }
-    .closing-center { max-width: 92vw; gap: .5em; }
-    .closing-h1 { font-size: clamp(2rem, 9vw, 3rem); }
-    .closing-coda { max-width: 88vw; font-size: clamp(.9rem, 3.8vw, 1.1rem); }
-    .closing-pre { margin-bottom: .2em; }
-
-    /* ── Navigation ── */
-    .nav { padding: .4em .85em; gap: .6em; bottom: 1.2vh; }
-    .nav-dots { display: none; }
-    .slide-counter { font-size: .7rem; }
-    .nav-btn { font-size: .88rem; padding: .2em .4em; }
-
-    /* ── Logo badge ── */
-    .logo-wrap { top: 1vh; left: 3vw; padding: 4px 10px; }
 
     /* ── Feature rows ── */
-    .feature-row { padding: .4em 0; gap: .6em; }
-    .feature-row h4 { font-size: clamp(.8rem, 3.2vw, .9rem); }
-    .feature-row p { font-size: clamp(.7rem, 2.7vw, .8rem); }
+    .feature-row { padding: .4em 0; gap: .55em; }
+    .feature-row h4 { font-size: clamp(.82rem, 3.3vw, .92rem); }
+    .feature-row p  { font-size: clamp(.72rem, 2.9vw, .82rem); }
 
     /* ── Lists ── */
     .arrow-list li,
-    .check-list li { font-size: clamp(.76rem, 3vw, .88rem); padding: .35em 0; }
+    .check-list li { font-size: clamp(.78rem, 3.1vw, .88rem); padding: .35em 0; }
 
     /* ── Pct tags ── */
-    .pct-tag { font-size: clamp(1.5rem, 6.5vw, 2rem); margin-bottom: .1em; }
+    .pct-tag { font-size: clamp(1.5rem, 7vw, 2rem); margin-bottom: .1em; }
 
-    /* ── Brand / project cards ── */
-    .brand-name { font-size: clamp(.88rem, 3.8vw, 1rem); }
-    .brand-sub { font-size: clamp(.6rem, 2.4vw, .7rem); }
-    .psm-val { font-size: clamp(.88rem, 3.8vw, 1.05rem); }
-    .psm-label { font-size: clamp(.62rem, 2.5vw, .72rem); }
-    .psm-role { font-size: clamp(.6rem, 2.4vw, .68rem); }
-    .project-slide-title { font-size: clamp(.9rem, 3.8vw, 1.05rem); }
-    .project-slide-brand { font-size: clamp(.6rem, 2.4vw, .7rem); }
+    /* ── Brand/project cards ── */
+    .brand-name { font-size: clamp(.9rem, 3.8vw, 1.05rem); }
+    .brand-sub  { font-size: clamp(.62rem, 2.5vw, .72rem); }
+    .psm-val    { font-size: clamp(.9rem, 3.8vw, 1.05rem); }
+    .psm-label  { font-size: clamp(.63rem, 2.6vw, .73rem); }
+    .psm-role   { font-size: clamp(.6rem, 2.4vw, .68rem); }
+    .project-slide-title { font-size: clamp(.92rem, 3.9vw, 1.08rem); }
+    .project-slide-brand { font-size: clamp(.62rem, 2.5vw, .72rem); }
 
     /* ── Video links ── */
-    .video-links { gap: .28em; }
-    .video-link { font-size: clamp(.65rem, 2.6vw, .75rem); }
-
-    /* ── Card num (hallazgos) ── */
-    .card-num { font-size: clamp(1.2rem, 5vw, 1.6rem); margin-bottom: .1em; }
+    .video-links { gap: .3em; }
+    .video-link { font-size: clamp(.67rem, 2.7vw, .76rem); }
   }
 
 </style>
@@ -724,7 +777,7 @@
   <!-- ── SLIDE 3: EL PROBLEMA ── -->
   <section class="slide" id="s3">
     <div class="eyebrow" data-reveal="1">El problema que encontramos</div>
-    <h2 data-reveal="2">Insuaminca tiene una plataforma web que ya hace<br>el trabajo de los asesores.<br><span style="color:var(--accent2)">El canal digital no está llevando a nadie hacia ella.</span></h2>
+    <h2 data-reveal="2">Insuaminca tiene una plataforma web que ya hace el trabajo de los asesores. <span style="color:var(--accent2)">El canal digital no está llevando a nadie hacia ella.</span></h2>
 
     <div class="flow" data-reveal="3">
       <div class="flow-box">
@@ -810,7 +863,7 @@
   <!-- ── SLIDE 6: LA OPORTUNIDAD ── -->
   <section class="slide" id="s6">
     <div class="eyebrow" data-reveal="1">La oportunidad</div>
-    <h2 data-reveal="2">El portal ya existe con todas sus capacidades.<br>Lo que falta es que las redes lo pongan en el centro.</h2>
+    <h2 data-reveal="2">El portal ya existe con todas sus capacidades. Lo que falta es que las redes lo pongan en el centro.</h2>
     <div class="accent-rule" data-reveal="2"></div>
 
     <div class="grid-split" data-reveal="3">
@@ -849,7 +902,7 @@
   <!-- ── SLIDE 7: ESTRATEGIA DE CONTENIDO ── -->
   <section class="slide" id="s7">
     <div class="eyebrow" data-reveal="1">La estrategia de contenido</div>
-    <h2 data-reveal="2">Una distribución de contenido donde cada publicación<br>tiene un propósito claro y una dirección definida.</h2>
+    <h2 data-reveal="2">Una distribución de contenido donde cada publicación tiene un propósito claro y una dirección definida.</h2>
     <div class="accent-rule" data-reveal="2"></div>
 
     <div class="grid-3" data-reveal="3">
@@ -890,7 +943,7 @@
   <!-- ── SLIDE 8: IMPACTO ── -->
   <section class="slide" id="s8">
     <div class="eyebrow" data-reveal="1">Lo que gana Insuaminca</div>
-    <h2 data-reveal="2">Los resultados concretos de ejecutar<br>una estrategia con dirección clara.</h2>
+    <h2 data-reveal="2">Los resultados concretos de ejecutar una estrategia con dirección clara.</h2>
     <div class="accent-rule" data-reveal="2"></div>
 
     <div class="grid-2" data-reveal="3">
@@ -929,7 +982,7 @@
   <!-- ── SLIDE 9: PRÓXIMOS PASOS ── -->
   <section class="slide" id="s9">
     <div class="eyebrow" data-reveal="1">¿Qué sigue?</div>
-    <h2 data-reveal="2">Esta auditoría es el diagnóstico.<br>Lo que viene es construir la estrategia completa juntos.</h2>
+    <h2 data-reveal="2">Esta auditoría es el diagnóstico. Lo que viene es construir la estrategia completa juntos.</h2>
     <div class="accent-rule" data-reveal="2"></div>
 
     <div class="grid-2" style="margin-top:1em" data-reveal="3">
@@ -961,7 +1014,7 @@
   <!-- ── SLIDE 10: MARCAS Y NÚMEROS ── -->
   <section class="slide" id="s10">
     <div class="eyebrow" data-reveal="1">Con quiénes hemos trabajado</div>
-    <h2 data-reveal="2">Marcas que han confiado en We Flow<br>para crecer en digital.</h2>
+    <h2 data-reveal="2">Marcas que han confiado en We Flow para crecer en digital.</h2>
     <div class="accent-rule" data-reveal="2"></div>
 
     <div class="stats-band" data-reveal="3">
@@ -1017,7 +1070,7 @@
   <!-- ── SLIDE 11: PROYECTOS DESTACADOS ── -->
   <section class="slide" id="s11">
     <div class="eyebrow" data-reveal="1">Proyectos destacados</div>
-    <h2 data-reveal="2">Campañas con resultados medibles,<br>no solo intenciones.</h2>
+    <h2 data-reveal="2">Campañas con resultados medibles.</h2>
     <div class="accent-rule" data-reveal="2"></div>
 
     <div class="grid-2" data-reveal="3">
